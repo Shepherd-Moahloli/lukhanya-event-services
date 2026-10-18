@@ -1,0 +1,7 @@
+LUKHANYA PROJECTS — suggested website palette
+
+Gold: #BA831F
+Near-black: #151515
+White: #FFFFFF
+
+Colours are approximate, sampled visually from the supplied textured photograph. SVG is a vector reconstruction, not the original master artwork.
