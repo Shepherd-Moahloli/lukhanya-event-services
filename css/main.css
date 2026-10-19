@@ -116,6 +116,40 @@ a {
   font-size: 14px;
   font-weight: 600;
 }
+/* rounded stroke for nav links — reserve border space to avoid layout shift */
+.links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 2px solid transparent; /* reserve the stroke */
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+}
+
+.links a:hover,
+.links a:focus {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(186, 131, 31, 0.12);
+  outline: none;
+}
+
+/* keep accessibility: visible keyboard focus with same style */
+.links a:focus {
+  box-shadow: 0 12px 28px rgba(186, 131, 31, 0.18);
+}
+
+/* keep the same visual when a link is the current page */
+.links a.active,
+.links a[aria-current="page"] {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(186, 131, 31, 0.12);
+  outline: none;
+}
 .links a {
   margin: 0 10px;
   text-decoration: none;
@@ -152,6 +186,50 @@ a {
   border: 1px solid var(--line);
   color: var(--ink);
   border-radius: 999px;
+}
+
+/* stroke-only hover variant — rounded with brown solid stroke on hover */
+.btn.stroke-hover,
+a.btn.stroke-hover,
+button.btn.stroke-hover {
+  /* keep base look identical to .btn */
+  background: #f6f6f6;
+  color: #111;
+  border-radius: 999px;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+  box-shadow: 0 6px 18px rgba(25, 20, 12, 0.06);
+  border: 2px solid transparent; /* reserve space to avoid layout shift */
+  will-change: transform, box-shadow;
+  cursor: pointer;
+}
+
+/* apply stroke-only effect ONLY when the nav is hovered or focused (keyboard accessible) */
+.nav:hover .btn.stroke-hover,
+.nav:focus-within .btn.stroke-hover,
+.nav:hover a.btn.stroke-hover,
+.nav:focus-within a.btn.stroke-hover,
+.nav:hover button.btn.stroke-hover,
+.nav:focus-within button.btn.stroke-hover {
+  background: transparent !important;
+  color: var(--gold) !important;
+  border-color: var(--gold) !important; /* solid brown/gold stroke */
+  box-shadow: 0 12px 30px rgba(186, 131, 31, 0.12);
+  transform: translateY(-6px);
+  animation: btn-bounce 520ms cubic-bezier(.22,.9,.35,1) both;
+  outline: none;
+}
+
+/* keep gold variant compatible with nav-hover stroke */
+.nav:hover .btn.gold.stroke-hover,
+.nav:focus-within .btn.gold.stroke-hover,
+.nav:hover a.btn.gold.stroke-hover,
+.nav:focus-within a.btn.gold.stroke-hover {
+  background: transparent !important;
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+  box-shadow: 0 12px 30px rgba(186, 131, 31, 0.12);
+  transform: translateY(-6px);
+  animation: btn-bounce 520ms cubic-bezier(.22,.9,.35,1) both;
 }
 
 /* hover / focus (keyboard accessible) — bounce + stronger drop shadow */

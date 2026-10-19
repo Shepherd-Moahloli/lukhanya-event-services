@@ -335,3 +335,67 @@ function markAsSent() {
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape") closeWAForm();
 });
+
+(function () {
+  // small header z-index/position safeguard
+  const topbarEl = document.querySelector(".topbar");
+  const navEl = document.querySelector(".nav");
+  if (topbarEl) {
+    topbarEl.style.zIndex = "10010";
+    if (getComputedStyle(topbarEl).position === "static") {
+      topbarEl.style.position = "relative";
+    }
+  }
+  if (navEl) {
+    navEl.style.zIndex = "10000";
+    if (getComputedStyle(navEl).position === "static") {
+      navEl.style.position = "sticky";
+      navEl.style.top = "0";
+    }
+  }
+
+  // Set/remove .active and aria-current based on the current URL/hash
+  function updateActiveNav() {
+    const links = document.querySelectorAll(".links a");
+    const currentHash = location.hash || "#home";
+
+    links.forEach((a) => {
+      const href = a.getAttribute("href");
+      if (!href) return;
+
+      if (href.startsWith("#")) {
+        // section anchors
+        if (href === currentHash) {
+          a.classList.add("active");
+          a.setAttribute("aria-current", "page");
+        } else {
+          a.classList.remove("active");
+          a.removeAttribute("aria-current");
+        }
+      } else {
+        // full-page links — compare pathname
+        try {
+          const linkUrl = new URL(a.href, location.origin);
+          if (linkUrl.pathname === location.pathname) {
+            a.classList.add("active");
+            a.setAttribute("aria-current", "page");
+          } else {
+            a.classList.remove("active");
+            a.removeAttribute("aria-current");
+          }
+        } catch (e) {
+          // ignore invalid URLs
+        }
+      }
+    });
+  }
+
+  updateActiveNav();
+  window.addEventListener("hashchange", updateActiveNav);
+  window.addEventListener("popstate", updateActiveNav);
+
+  // ensure immediate feedback when clicking nav links
+  document.querySelectorAll(".links a").forEach((a) => {
+    a.addEventListener("click", () => setTimeout(updateActiveNav, 10));
+  });
+})();

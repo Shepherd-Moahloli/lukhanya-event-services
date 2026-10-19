@@ -498,25 +498,7 @@
       </div>
     </div>
 
-    <script></script>
+    <!-- keep only one script load (deferred) -->
     <script src="js/main.js" defer></script>
-    <script>
-      const topbarEl = document.querySelector(".topbar");
-      const navEl = document.querySelector(".nav");
-      if (topbarEl) {
-        topbarEl.style.zIndex = "10010";
-        // only override position when the computed style is 'static'
-        if (getComputedStyle(topbarEl).position === "static") {
-          topbarEl.style.position = "relative";
-        }
-      }
-      if (navEl) {
-        navEl.style.zIndex = "10000";
-        if (getComputedStyle(navEl).position === "static") {
-          navEl.style.position = "sticky";
-          navEl.style.top = "0";
-        }
-      }
-    </script>
   </body>
 </html>
