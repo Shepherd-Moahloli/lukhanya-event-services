@@ -205,6 +205,53 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
+// Gallery carousel functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const gallery = document.querySelector(".gallery");
+  const photos = document.querySelectorAll(".photo");
+  const prevBtn = document.querySelector(".gallery-nav.prev");
+  const nextBtn = document.querySelector(".gallery-nav.next");
+
+  if (!gallery || photos.length === 0) return;
+
+  let currentIndex = 0;
+  const itemsPerView = 3;
+  const totalItems = photos.length;
+
+  function updateGallery() {
+    // Calculate the offset based on item width
+    const offset = currentIndex * (100 / itemsPerView);
+    gallery.style.transform = `translateX(-${offset}%)`;
+  }
+
+  function nextSlide() {
+    if (currentIndex < totalItems - itemsPerView) {
+      currentIndex++;
+      updateGallery();
+    }
+  }
+
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateGallery();
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", prevSlide);
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", nextSlide);
+  }
+
+  // Add smooth transition to gallery
+  if (gallery) {
+    gallery.style.transition =
+      "transform 400ms cubic-bezier(0.22, 0.9, 0.35, 1)";
+  }
+});
+
 // sendQuote (called from contact form)
 function sendQuote(e) {
   e.preventDefault();
