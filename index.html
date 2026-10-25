@@ -391,12 +391,39 @@
 
     <footer>
       <div class="container footer-inner">
-        <div>
+        <div class="footer-section">
           <strong>Lukhanya Event Services</strong><br /><span
             >Making moments matter.</span
           >
+          <div class="footer-contact" style="margin-top: 20px">
+            <p style="font-size: 14px; margin: 8px 0">
+              <a href="tel:+27798357630">+27 79 835 7630</a>
+            </p>
+            <p style="font-size: 14px; margin: 8px 0">
+              <a href="mailto:info@lukhanyapro.co.za">info@lukhanyapro.co.za</a>
+            </p>
+          </div>
         </div>
-        <div>
+
+        <nav class="footer-nav">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-info">
+          <p style="font-size: 14px; line-height: 1.6">
+            Soweto-based event services serving all 9 provinces. Catering, event
+            management, production and hospitality solutions.
+          </p>
+        </div>
+
+        <div class="footer-copyright">
           © <span id="year"></span> Lukhanya Event Services · Soweto · South
           Africa
         </div>
@@ -404,102 +431,7 @@
     </footer>
 
     <!-- replace the existing WhatsApp button + modal with this updated version -->
-    <button
-      class="wa"
-      type="button"
-      aria-haspopup="dialog"
-      aria-controls="waModal"
-      onclick="openWAForm()"
-    >
-      WhatsApp
-    </button>
-
-    <!-- WhatsApp modal -->
-    <div
-      id="waModal"
-      class="wa-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-hidden="true"
-    >
-      <div
-        class="wa-modal__overlay"
-        onclick="closeWAForm()"
-        tabindex="-1"
-      ></div>
-
-      <div
-        class="wa-modal__panel"
-        role="document"
-        aria-labelledby="waModalTitle"
-      >
-        <button
-          class="wa-modal__close"
-          type="button"
-          aria-label="Close"
-          onclick="closeWAForm()"
-        >
-          ✕
-        </button>
-
-        <h3 id="waModalTitle">Message Lukhanya</h3>
-        <p class="muted">
-          Enter your name, phone and a short enquiry. WhatsApp will open in a
-          new tab/app — return here and tap "I sent it" when complete.
-        </p>
-
-        <form id="waForm" onsubmit="submitWAForm(event)" novalidate>
-          <label>
-            Name
-            <input id="wa_name" name="name" required placeholder="Your name" />
-          </label>
-
-          <div class="wa-row">
-            <label class="wa-col">
-              Phone
-              <input
-                id="wa_phone"
-                name="phone"
-                inputmode="tel"
-                placeholder="+27 78 468 0610"
-              />
-            </label>
-          </div>
-
-          <label>
-            Message
-            <textarea
-              id="wa_message"
-              name="message"
-              placeholder="Tell Lukhanya about your event..."
-              required
-            ></textarea>
-          </label>
-
-          <div class="wa-modal__actions">
-            <button type="button" class="btn" onclick="closeWAForm()">
-              Cancel
-            </button>
-            <button type="submit" class="btn gold">Open WhatsApp</button>
-          </div>
-        </form>
-
-        <div id="waConfirm" class="wa-modal__confirm" hidden>
-          <p>
-            <strong>WhatsApp opened.</strong> After you send the message in
-            WhatsApp, return here and tap "I sent it".
-          </p>
-          <div class="wa-modal__actions">
-            <button type="button" class="btn" onclick="retryWA()">
-              Didn't send / Try again
-            </button>
-            <button type="button" class="btn gold" onclick="markAsSent()">
-              I sent it
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    x
 
     <!-- keep only one script load (deferred) -->
     <script src="js/main.js" defer></script>

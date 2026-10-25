@@ -217,232 +217,24 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentIndex = 0;
   const itemsPerView = 3;
   const totalItems = photos.length;
+  const maxIndex = Math.max(0, totalItems - itemsPerView);
+  const gap = 36; // matches your CSS gap
 
-  function updateGallery() {
-    // Calculate the offset based on item width
-    const offset = currentIndex * (100 / itemsPerView);
-    gallery.style.transform = `translateX(-${offset}%)`;
-  }
-
-  function nextSlide() {
-    if (currentIndex < totalItems - itemsPerView) {
-      currentIndex++;
-      updateGallery();
-    }
-  }
-
-  function prevSlide() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateGallery();
-    }
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", prevSlide);
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener("click", nextSlide);
-  }
-
-  // Add smooth transition to gallery
-  if (gallery) {
-    gallery.style.transition =
-      "transform 400ms cubic-bezier(0.22, 0.9, 0.35, 1)";
-  }
-});
-
-// sendQuote (called from contact form)
-function sendQuote(e) {
-  e.preventDefault();
-  const nameEl = document.getElementById("name");
-  const name = ((nameEl && nameEl.value) || "").trim();
-  if (!name) {
-    alert("Please enter your name.");
-    if (nameEl) nameEl.focus();
-    return;
-  }
-  const type = (document.getElementById("type")?.value || "").trim() || "Event";
-  const date = document.getElementById("date")?.value || "Not specified";
-  const guests = document.getElementById("guests")?.value || "Not specified";
-  const message =
-    (document.getElementById("message")?.value || "").trim() ||
-    "No additional message";
-
-  const text = `Hello Lukhanya Event Services,\n\nName: ${name}\nEvent: ${type}\nDate: ${date}\nGuests: ${guests}\n\n${message}`;
-  const waUrl = `https://wa.me/27798357630?text=${encodeURIComponent(text)}`;
-
-  // Try to open WhatsApp in a new tab/window. If blocked, fallback to email.
-  const win = window.open(waUrl, "_blank", "noopener");
-  if (!win) {
-    const subject = `Quote request from ${name}`;
-    const body = `Name: ${name}\nEvent: ${type}\nDate: ${date}\nGuests: ${guests}\n\n${message}`;
-    window.location.href = `mailto:info@lukhanyapro.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-}
-
-// open modal (safe checks)
-function openWAForm() {
-  const m = document.getElementById("waModal");
-  if (!m) return;
-  m.classList.add("open");
-  m.setAttribute("aria-hidden", "false");
-
-  const phone = document.getElementById("wa_phone");
-  if (phone && !phone.value) phone.value = "+27 78 468 0610";
-
-  const name = document.getElementById("wa_name");
-  if (name) setTimeout(() => name.focus(), 50);
-
-  const waForm = document.getElementById("waForm");
-  if (waForm) waForm.hidden = false;
-  const waConfirm = document.getElementById("waConfirm");
-  if (waConfirm) waConfirm.hidden = true;
-}
-
-function closeWAForm() {
-  const m = document.getElementById("waModal");
-  if (!m) return;
-  m.classList.remove("open");
-  m.setAttribute("aria-hidden", "true");
-}
-
-function submitWAForm(e) {
-  e.preventDefault();
-  const name = (document.getElementById("wa_name")?.value || "").trim();
-  const phone = (document.getElementById("wa_phone")?.value || "").trim();
-  const message = (document.getElementById("wa_message")?.value || "").trim();
-
-  if (!name || !message) {
-    alert("Please enter your name and a short message.");
-    return;
-  }
-
-  // TEMP TEST: send to your number (digits only)
-  const recipient = "27784680610"; // <-- your number for testing
-
-  const senderPhone = phone || "Not provided";
-
-  const body = `Hello Lukhanya Event Services,\n\nName: ${name}\nSender phone: ${senderPhone}\n\nMessage:\n${message}`;
-
-  const url = `https://wa.me/${recipient}?text=${encodeURIComponent(body)}`;
-
-  const record = {
-    name,
-    phone: senderPhone,
-    message,
-    to: recipient,
-    ts: new Date().toISOString(),
+  const updateGallery = () => {
+    const itemWidth = gallery.offsetWidth / itemsPerView;
+    const offset = currentIndex * (itemWidth + gap);
+    gallery.style.transform = `translateX(-${offset}px)`;
   };
-  try {
-    const logs = JSON.parse(localStorage.getItem("waLogs") || "[]");
-    logs.push(record);
-    localStorage.setItem("waLogs", JSON.stringify(logs));
-  } catch (err) {
-    /* ignore storage errors */
-  }
 
-  // send a copy to a webhook for immediate confirmation (optional)
-  fetch("<YOUR_WEBHOOK_URL>", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(record),
-  }).catch(() => {});
-
-  const win = window.open(url, "_blank", "noopener");
-
-  const waForm = document.getElementById("waForm");
-  if (waForm) waForm.hidden = true;
-  const waConfirm = document.getElementById("waConfirm");
-  if (waConfirm) waConfirm.hidden = false;
-
-  if (!win) {
-    const subject = `Quote request from ${name}`;
-    const bodyMail = `Name: ${name}\nEvent enquiry:\n${message}\n\nSender phone: ${senderPhone}`;
-    window.location.href = `mailto:info@lukhanyapro.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyMail)}`;
-  }
-}
-
-function retryWA() {
-  const waForm = document.getElementById("waForm");
-  const waConfirm = document.getElementById("waConfirm");
-  if (waForm) waForm.hidden = false;
-  if (waConfirm) waConfirm.hidden = true;
-  setTimeout(() => document.getElementById("wa_message")?.focus(), 50);
-}
-
-function markAsSent() {
-  const panel = document.querySelector(".wa-modal__panel");
-  if (!panel) return;
-  panel.innerHTML =
-    '<p style="font-weight:700">Thanks — your message was opened in WhatsApp. Lukhanya will reply there. You can close this window.</p><div style="margin-top:14px"><button class="btn" onclick="closeWAForm()">Close</button></div>';
-}
-
-// close on ESC
-document.addEventListener("keydown", (ev) => {
-  if (ev.key === "Escape") closeWAForm();
-});
-
-(function () {
-  // small header z-index/position safeguard
-  const topbarEl = document.querySelector(".topbar");
-  const navEl = document.querySelector(".nav");
-  if (topbarEl) {
-    topbarEl.style.zIndex = "10010";
-    if (getComputedStyle(topbarEl).position === "static") {
-      topbarEl.style.position = "relative";
-    }
-  }
-  if (navEl) {
-    navEl.style.zIndex = "10000";
-    if (getComputedStyle(navEl).position === "static") {
-      navEl.style.position = "sticky";
-      navEl.style.top = "0";
-    }
-  }
-
-  // Set/remove .active and aria-current based on the current URL/hash
-  function updateActiveNav() {
-    const links = document.querySelectorAll(".links a");
-    const currentHash = location.hash || "#home";
-
-    links.forEach((a) => {
-      const href = a.getAttribute("href");
-      if (!href) return;
-
-      if (href.startsWith("#")) {
-        // section anchors
-        if (href === currentHash) {
-          a.classList.add("active");
-          a.setAttribute("aria-current", "page");
-        } else {
-          a.classList.remove("active");
-          a.removeAttribute("aria-current");
-        }
-      } else {
-        // full-page links — compare pathname
-        try {
-          const linkUrl = new URL(a.href, location.origin);
-          if (linkUrl.pathname === location.pathname) {
-            a.classList.add("active");
-            a.setAttribute("aria-current", "page");
-          } else {
-            a.classList.remove("active");
-            a.removeAttribute("aria-current");
-          }
-        } catch (e) {
-          // ignore invalid URLs
-        }
-      }
-    });
-  }
-
-  updateActiveNav();
-  window.addEventListener("hashchange", updateActiveNav);
-  window.addEventListener("popstate", updateActiveNav);
-
-  // ensure immediate feedback when clicking nav links
-  document.querySelectorAll(".links a").forEach((a) => {
-    a.addEventListener("click", () => setTimeout(updateActiveNav, 10));
+  prevBtn?.addEventListener("click", () => {
+    currentIndex = Math.max(0, currentIndex - 1);
+    updateGallery();
   });
-})();
+
+  nextBtn?.addEventListener("click", () => {
+    currentIndex = Math.min(maxIndex, currentIndex + 1);
+    updateGallery();
+  });
+
+  updateGallery();
+});
