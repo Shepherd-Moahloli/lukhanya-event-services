@@ -238,3 +238,72 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateGallery();
 });
+
+// Gallery auto-scroll functionality
+const gallery = document.querySelector(".gallery");
+const galleryWrapper = document.querySelector(".gallery-wrapper");
+const prevBtn = document.querySelector(".gallery-nav.prev");
+const nextBtn = document.querySelector(".gallery-nav.next");
+
+let autoScrollInterval;
+const autoScrollSpeed = 20; // milliseconds between scroll steps (faster)
+const scrollAmount = 4; // pixels per scroll step (increased from 2)
+let isAutoScrolling = true;
+
+function startAutoScroll() {
+  if (autoScrollInterval) clearInterval(autoScrollInterval);
+  isAutoScrolling = true;
+
+  autoScrollInterval = setInterval(() => {
+    if (gallery) {
+      gallery.scrollLeft += scrollAmount;
+
+      // Loop back to start when reaching the end
+      if (
+        gallery.scrollLeft >=
+        gallery.scrollWidth - gallery.clientWidth - 10
+      ) {
+        gallery.scrollLeft = 0;
+      }
+    }
+  }, autoScrollSpeed);
+}
+
+function stopAutoScroll() {
+  isAutoScrolling = false;
+  if (autoScrollInterval) clearInterval(autoScrollInterval);
+}
+
+// Start auto-scroll on load
+if (gallery) {
+  startAutoScroll();
+
+  // Pause on hover
+  gallery.addEventListener("mouseenter", stopAutoScroll);
+  galleryWrapper.addEventListener("mouseenter", stopAutoScroll);
+
+  // Resume on mouse leave
+  gallery.addEventListener("mouseleave", startAutoScroll);
+  galleryWrapper.addEventListener("mouseleave", startAutoScroll);
+}
+
+// Manual navigation buttons
+if (prevBtn) {
+  prevBtn.addEventListener("click", () => {
+    stopAutoScroll();
+    if (gallery) {
+      gallery.scrollLeft -= 400;
+    }
+    setTimeout(startAutoScroll, 3000); // Resume after 3 seconds
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", () => {
+    stopAutoScroll();
+    if (gallery) {
+      gallery.scrollLeft += 400;
+    }
+    setTimeout(startAutoScroll, 3000); // Resume after 3 seconds
+  });
+}
