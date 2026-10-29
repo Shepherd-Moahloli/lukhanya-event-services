@@ -817,10 +817,20 @@ button.btn:focus {
   padding: 0 40px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  animation: scroll-gallery 40s linear infinite;
 }
 
 .gallery::-webkit-scrollbar {
   display: none;
+}
+
+@keyframes scroll-gallery {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .photo {
