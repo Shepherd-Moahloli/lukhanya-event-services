@@ -48,6 +48,7 @@ body {
   line-height: 1.65;
   padding-top: calc(var(--topbar-height) + var(--nav-height));
   background: linear-gradient(180deg, var(--paper) 0%, #fffefb 100%);
+  overflow-x: hidden;
 }
 img {
   width: 100%;
@@ -1327,4 +1328,8 @@ footer {
     left: 50%;
     transform: translateX(-50%);
   }
+}
+
+.modal {
+  transition: opacity 0.2s ease;
 }
