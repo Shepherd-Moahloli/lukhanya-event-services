@@ -307,3 +307,17 @@ if (nextBtn) {
     setTimeout(startAutoScroll, 3000); // Resume after 3 seconds
   });
 }
+
+document.querySelector(".quote-btn").addEventListener("click", () => {
+  window.location.href = "quote.html";
+});
+
+document.querySelector(".whatsapp-btn").addEventListener("click", () => {
+  window.open("https://wa.me/YOUR_PHONE_NUMBER", "_blank");
+});
+
+document.querySelectorAll(".btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault(); // This would block navigation
+  });
+});
