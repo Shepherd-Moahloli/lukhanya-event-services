@@ -304,20 +304,21 @@ if (nextBtn) {
     if (gallery) {
       gallery.scrollLeft += 400;
     }
-    setTimeout(startAutoScroll, 3000); // Resume after 3 seconds
+    setTimeout(startAutoScroll, 3000);
   });
 }
 
-document.querySelector(".quote-btn").addEventListener("click", () => {
-  window.location.href = "quote.html";
-});
+// DELETE THESE BLOCKS - THEY'RE LOOKING FOR NON-EXISTENT CLASSES
+// const quoteBtn = document.querySelector(".quote-btn");
+// if (quoteBtn) {
+//   quoteBtn.addEventListener("click", () => {
+//     window.location.href = "quote.html";
+//   });
+// }
 
-document.querySelector(".whatsapp-btn").addEventListener("click", () => {
-  window.open("https://wa.me/YOUR_PHONE_NUMBER", "_blank");
-});
-
-document.querySelectorAll(".btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault(); // This would block navigation
-  });
-});
+// const whatsappBtn = document.querySelector(".whatsapp-btn");
+// if (whatsappBtn) {
+//   whatsappBtn.addEventListener("click", () => {
+//     window.open("https://wa.me/YOUR_PHONE_NUMBER", "_blank");
+//   });
+// }
