@@ -322,3 +322,24 @@ if (nextBtn) {
 //     window.open("https://wa.me/YOUR_PHONE_NUMBER", "_blank");
 //   });
 // }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const hamburger = document.querySelector(".hamburger");
+  const links = document.querySelector(".links");
+
+  if (hamburger && links) {
+    hamburger.addEventListener("click", function (e) {
+      e.preventDefault();
+      hamburger.classList.toggle("active");
+      links.classList.toggle("active");
+    });
+
+    // Close menu when a link is clicked
+    links.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", function () {
+        hamburger.classList.remove("active");
+        links.classList.remove("active");
+      });
+    });
+  }
+});
