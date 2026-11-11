@@ -306,14 +306,17 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (data.success) {
-      alert(data.message);
-      document.getElementById("contactForm").reset();
+      // Redirect to thank you page after 1 second
+      setTimeout(() => {
+        window.location.href = "thankyou.html";
+      }, 1000);
     } else {
       alert("Error: " + (data.error || "Failed to send"));
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
   } catch (error) {
     alert("Error: " + error.message);
-  } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }

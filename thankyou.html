@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You - Lukhanya Event Services</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      .thank-you-section {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+      }
+
+      .thank-you-container {
+        text-align: center;
+        max-width: 700px;
+        animation: slideIn 0.6s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .checkmark {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 30px;
+        background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 0.6s ease-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .checkmark::after {
+        content: "✓";
+        font-size: 48px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .thank-you-container h1 {
+        color: #000;
+        font-size: 48px;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .thank-you-container .subtitle {
+        color: #b8860b;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+      }
+
+      .thank-you-container p {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .message-box {
+        background: white;
+        padding: 30px;
+        border-left: 5px solid #b8860b;
+        margin: 40px 0;
+        text-align: left;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .message-box p {
+        margin: 0;
+        color: #555;
+        font-size: 15px;
+      }
+
+      .message-box p strong {
+        color: #b8860b;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 50px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 14px 35px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #b8860b;
+        border: 2px solid #b8860b;
+      }
+
+      .btn-secondary:hover {
+        background: #b8860b;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .contact-info {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 2px solid #e0e0e0;
+      }
+
+      .contact-info p {
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 12px;
+      }
+
+      .contact-info p strong {
+        color: #b8860b;
+      }
+
+      @media (max-width: 768px) {
+        .thank-you-section {
+          min-height: 60vh;
+          padding: 40px 20px;
+        }
+
+        .thank-you-container h1 {
+          font-size: 36px;
+        }
+
+        .thank-you-container .subtitle {
+          font-size: 18px;
+        }
+
+        .button-group {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .checkmark {
+          width: 70px;
+          height: 70px;
+        }
+
+        .checkmark::after {
+          font-size: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="container">
+        <span>SOWETO • SOUTH AFRICA • SERVING ALL 9 PROVINCES</span
+        ><span>+27 79 835 7630 • info@lukhanyapro.co.za</span>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#home">
+          <!-- use the SVG from your "logo and assets" folder -->
+          <img
+            class="brand-logo"
+            src="logo/lukhanya-projects-white.svg"
+            alt="Lukhanya Event Services logo"
+          />
+        </a>
+        <div class="links">
+          <a href="#services">SERVICES</a>
+          <a href="#gallery">GALLERY</a>
+          <a href="#about">ABOUT</a>
+          <a href="#contact">CONTACT</a>
+          <div class="links-footer">
+            <h3>Lukhanya Event Services</h3>
+            <p>Making moments matter.</p>
+            <div class="footer-contact-mobile">
+              <a href="tel:+27798357630">+27 79 835 7630</a>
+              <a href="mailto:info@lukhanyapro.co.za">info@lukhanyapro.co.za</a>
+            </div>
+            <p class="company-desc">
+              Soweto-based event services serving all 9 provinces. Catering,
+              event management, production and hospitality solutions.
+            </p>
+          </div>
+        </div>
+        <button
+          class="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <a class="btn gold" href="#contact">Get a Quote</a>
+      </div>
+    </nav>
+    <!-- THANK YOU CONTENT -->
+    <section class="thank-you-section">
+      <div class="thank-you-container">
+        <div class="checkmark"></div>
+
+        <h1>Thank You!</h1>
+        <p class="subtitle">Your enquiry has been received</p>
+
+        <p>
+          We appreciate you choosing Lukhanya Event Services for your special
+          celebration. Your quote request has been successfully submitted.
+        </p>
+
+        <div class="message-box">
+          <p><strong>What's next?</strong></p>
+          <p>
+            Our team will review your requirements and contact you within 24
+            hours with a personalized quote and recommendations for your event.
+          </p>
+        </div>
+
+        <p style="color: #999; font-size: 14px">
+          A confirmation email has been sent to your email address. Please check
+          your inbox (and spam folder) for our response.
+        </p>
+
+        <div class="button-group">
+          <a href="index.html" class="btn btn-primary">Back to Home</a>
+          <a href="index.html#services" class="btn btn-secondary"
+            >View Our Services</a
+          >
+        </div>
+
+        <div class="contact-info">
+          <p><strong>Contact Us Directly</strong></p>
+          <p>Phone: +27 79 835 7630</p>
+          <p>Email: info@lukhanyapro.co.za</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        &copy; <span id="year"></span> Lukhanya Event Services. All rights
+        reserved.
+      </p>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

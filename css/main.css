@@ -432,6 +432,10 @@ button.btn:focus {
   text-align: left;
 }
 
+.hero-content .actions {
+  width: 60% !important;
+}
+
 /* responsive: remove left margin on mobile */
 @media (max-width: 768px) {
   .hero-content .inner {
@@ -1581,7 +1585,7 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  width: 100%;
+  width: 100% !important;
   max-width: 100%;
   text-align: center;
 }
