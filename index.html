@@ -377,26 +377,36 @@
             </div>
           </div>
 
-          <form id="contactForm" onsubmit="sendQuote(event)" novalidate>
+          <form id="contactForm" novalidate>
             <div class="field">
-              <label for="name">Name</label
-              ><input id="name" name="name" required placeholder="Your name" />
+              <label for="name">Name</label>
+              <input id="name" name="name" required placeholder="Your name" />
             </div>
             <div class="field">
-              <label for="type">Event type</label
-              ><input
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="Your email"
+              />
+            </div>
+            <div class="field">
+              <label for="type">Event type</label>
+              <input
                 id="type"
                 name="type"
                 placeholder="Birthday, wedding, conference..."
               />
             </div>
             <div class="field">
-              <label for="date">Event date</label
-              ><input id="date" name="date" type="date" />
+              <label for="date">Event date</label>
+              <input id="date" name="date" type="date" />
             </div>
             <div class="field">
-              <label for="guests">Guest count</label
-              ><input
+              <label for="guests">Guest count</label>
+              <input
                 id="guests"
                 name="guests"
                 type="number"
@@ -405,8 +415,8 @@
               />
             </div>
             <div class="field full">
-              <label for="message">Message</label
-              ><textarea
+              <label for="message">Message</label>
+              <textarea
                 id="message"
                 name="message"
                 placeholder="Tell us about your event and what you need."
