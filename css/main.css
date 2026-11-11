@@ -395,24 +395,26 @@ button.btn:focus {
 
 /* keep hero content readable above images */
 .hero-content {
-  position: relative; /* sits above the slider */
-  z-index: 3;
+  position: absolute; /* Change from relative to absolute */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10; /* Ensure it's above the slider */
   color: #fff;
-  /* simplified padding so content sits correctly inside the computed hero height */
   padding: 40px 20px 60px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   min-height: 100%;
   pointer-events: auto; /* Make sure this is set */
-  z-index: 10; /* Ensure it's above the slider */
 }
 
 /* check .actions buttons */
 .actions .btn {
-  pointer-events: auto;
+  pointer-events: auto; /* ✓ Buttons stay clickable */
   position: relative;
-  z-index: 11;
+  z-index: 11; /* ✓ Above everything */
 }
 
 /* keep content width aligned with site container (match header/nav) */
@@ -425,9 +427,16 @@ button.btn:focus {
 /* limit text column width so lines stay readable and align with logo */
 .hero-content .inner {
   max-width: 640px;
-  margin: -220px 220px;
+  margin: 0 0 0 220px;
   padding: 0;
   text-align: left;
+}
+
+/* responsive: remove left margin on mobile */
+@media (max-width: 768px) {
+  .hero-content .inner {
+    margin: 0;
+  }
 }
 
 /* heading larger, more punchy */
@@ -463,6 +472,9 @@ button.btn:focus {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
   margin-right: 12px;
   cursor: pointer;
+  pointer-events: auto; /* Explicitly allow clicks */
+  position: relative;
+  z-index: 12;
 }
 
 /* optional primary style if you use a yellow primary button */
@@ -476,6 +488,17 @@ button.btn:focus {
 .hero-content * {
   position: relative;
   z-index: 3;
+}
+
+/* Make buttons clickable in hero */
+.hero-content .actions {
+  pointer-events: auto;
+}
+
+.hero-content .actions a,
+.hero-content .actions button {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 /* responsive tweak: stack buttons on small screens */
