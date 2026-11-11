@@ -280,19 +280,117 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById("contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const submitBtn = e.target.querySelector('button[type="submit"]');
+  // Clear previous errors
+  clearAllErrors();
+
+  // Validate form
+  const formData = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    type: document.getElementById("type").value.trim(),
+    date: document.getElementById("date").value.trim(),
+    guests: document.getElementById("guests").value.trim(),
+    message: document.getElementById("message").value.trim(),
+  };
+
+  // Validation checks
+  let hasErrors = false;
+
+  if (!formData.name) {
+    showError("name", "Please enter your name");
+    hasErrors = true;
+  }
+
+  if (!formData.email) {
+    showError("email", "Please enter your email address");
+    hasErrors = true;
+  } else if (!isValidEmail(formData.email)) {
+    showError("email", "Please enter a valid email address");
+    hasErrors = true;
+  }
+
+  if (!formData.type) {
+    showError("type", "Please enter your event type");
+    hasErrors = true;
+  }
+
+  if (!formData.date) {
+    showError("date", "Please select an event date");
+    hasErrors = true;
+  }
+
+  if (!formData.guests) {
+    showError("guests", "Please enter guest count");
+    hasErrors = true;
+  } else if (isNaN(formData.guests) || formData.guests < 1) {
+    showError("guests", "Please enter a valid number");
+    hasErrors = true;
+  }
+
+  if (!formData.message) {
+    showError("message", "Please enter a message");
+    hasErrors = true;
+  }
+
+  // Stop if there are errors
+  if (hasErrors) {
+    return;
+  }
+
+  // Proceed with form submission
+  submitForm(formData);
+});
+
+function showError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  const errorDiv =
+    field.parentElement.querySelector(".error-message") ||
+    createErrorElement(field);
+
+  errorDiv.textContent = message;
+  errorDiv.style.display = "block";
+  field.style.borderColor = "#e74c3c";
+  field.parentElement.classList.add("has-error");
+}
+
+function clearAllErrors() {
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((msg) => {
+    msg.style.display = "none";
+  });
+
+  const inputs = document.querySelectorAll(
+    "#contactForm input, #contactForm textarea",
+  );
+  inputs.forEach((input) => {
+    input.style.borderColor = "";
+    input.parentElement.classList.remove("has-error");
+  });
+}
+
+function createErrorElement(field) {
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
+  errorDiv.style.color = "#e74c3c";
+  errorDiv.style.fontSize = "13px";
+  errorDiv.style.marginTop = "5px";
+  errorDiv.style.display = "none";
+  field.parentElement.appendChild(errorDiv);
+  return errorDiv;
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+async function submitForm(formData) {
+  const submitBtn = document.querySelector(
+    "#contactForm button[type='submit']",
+  );
   const originalText = submitBtn.textContent;
   submitBtn.textContent = "Sending...";
   submitBtn.disabled = true;
-
-  const formData = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    type: document.getElementById("type").value,
-    date: document.getElementById("date").value,
-    guests: document.getElementById("guests").value,
-    message: document.getElementById("message").value,
-  };
 
   try {
     const response = await fetch("http://localhost:8001/api/contact", {
@@ -320,4 +418,4 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }
-});
+}
