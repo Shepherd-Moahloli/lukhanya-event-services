@@ -375,7 +375,7 @@ button.btn:focus {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 2; /* sits above the img (which is z-index:0) but below hero-content (z-index:3) */
+  z-index: 1; /* sits above the img (which is z-index:0) but below hero-content (z-index:3) */
   pointer-events: none;
   /* subtle left-side darkening to make left-aligned text pop */
   background: linear-gradient(
@@ -477,6 +477,30 @@ button.btn:focus {
   z-index: 12;
 }
 
+/* primary button style for hero */
+.hero-content .btn.primary {
+  background: linear-gradient(180deg, #f0b03a, #d99a2e) !important;
+  color: #111 !important;
+  padding: 14px 32px !important;
+  border-radius: 999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 12 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 26px rgba(217, 154, 46, 0.28) !important;
+  display: inline-block !important;
+}
+
+.hero-content .btn.primary:hover,
+.hero-content .btn.primary:focus {
+  background: linear-gradient(180deg, #e8a530, #c98a28) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 32px rgba(217, 154, 46, 0.4) !important;
+  outline: none !important;
+}
+
 /* optional primary style if you use a yellow primary button */
 .hero-content .btn.primary {
   background: linear-gradient(180deg, #f0b03a, #d99a2e);
@@ -493,28 +517,18 @@ button.btn:focus {
 /* Make buttons clickable in hero */
 .hero-content .actions {
   pointer-events: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .hero-content .actions a,
 .hero-content .actions button {
   pointer-events: auto;
   cursor: pointer;
-}
-
-/* responsive tweak: stack buttons on small screens */
-@media (max-width: 520px) {
-  .hero-content {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .hero-content .btn {
-    display: block;
-    width: 100%;
-    margin: 8px 0;
-  }
-  .hero-content h1 {
-    font-size: clamp(28px, 9vw, 40px);
-  }
+  width: 100%;
 }
 
 /* Services section */
@@ -1564,17 +1578,29 @@ footer {
 /* Make buttons clickable in hero */
 .hero-content .actions {
   pointer-events: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
 }
 
 .hero-content .actions a,
 .hero-content .actions button {
   pointer-events: auto;
   cursor: pointer;
+  width: 100%;
+  font-size: 15px;
 }
 
 /* Mobile Navigation - Media Queries Only */
 @media (max-width: 768px) {
   /* Hide desktop nav links by default, show hamburger */
+
+  .topbar {
+    font-size: 7px;
+  }
   .nav-inner {
     display: flex !important;
     justify-content: flex-start !important;
@@ -1630,7 +1656,7 @@ footer {
     cursor: pointer !important;
     padding: 6px 10px !important;
     z-index: 1001 !important;
-    margin-left: 220px !important;
+    margin-left: auto !important;
     width: 44px !important;
     height: 44px !important;
     flex-shrink: 0 !important;
@@ -1765,5 +1791,101 @@ footer {
       border-bottom: 1px solid var(--line) !important;
       box-sizing: border-box !important;
     }
+  }
+}
+
+/* Hamburger menu - ensure it appears on far right on all mobile devices */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto; /* Push to the right */
+  z-index: 100;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  transition: all 300ms ease;
+  display: block;
+}
+
+/* Show hamburger on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .links {
+    display: none; /* Hide nav links on mobile */
+  }
+
+  /* When menu is open, show the links */
+  .hamburger.active ~ .links {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hamburger Menu Button - professional X icon */
+  .hamburger {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 10px !important;
+    z-index: 1001 !important;
+    margin-left: auto !important;
+    width: 44px !important;
+    height: 44px !important;
+    flex-shrink: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  .hamburger span {
+    width: 26px !important;
+    height: 2.5px !important;
+    background: var(--gold) !important;
+    transition: all 300ms cubic-bezier(0.22, 0.9, 0.35, 1) !important;
+    display: block !important;
+    position: absolute !important;
+  }
+
+  .hamburger span:nth-child(1) {
+    top: 12px !important;
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    opacity: 1 !important;
+  }
+
+  .hamburger span:nth-child(3) {
+    bottom: 12px !important;
+  }
+
+  /* Professional X when active */
+  .hamburger.active span:nth-child(1) {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    bottom: 50% !important;
+    transform: translateY(50%) rotate(-45deg) !important;
   }
 }
