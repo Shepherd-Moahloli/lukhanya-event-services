@@ -36,7 +36,7 @@ def send_contact():
         
         # Create email message
         msg = MIMEMultipart()
-        msg['From'] = os.getenv('EMAIL_USER')
+        msg['From'] = data['email']  # Use the form email as FROM
         msg['To'] = os.getenv('RECIPIENT_EMAIL')
         msg['Subject'] = f"New Quote Request from {data['name']}"
         
@@ -66,6 +66,7 @@ def send_contact():
         
         # Send email via Gmail SMTP
         print(f"Attempting to send email to: {os.getenv('RECIPIENT_EMAIL')}")
+        print(f"From: {data['email']}")
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(os.getenv('EMAIL_USER'), os.getenv('EMAIL_PASSWORD'))
             server.send_message(msg)
